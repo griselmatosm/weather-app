@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchWeather } from '../actions';
 
-const SearchBar = () => {
-    const [term, setTerm] = useState('');
+const SearchBar = (props) => {
+  const [term, setTerm] = useState('');
+
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    props.fetchWeather(term);
+    setTerm('');
+  };
+
   return (
-    <form className="input-group mb-3" onSubmit={(event) => event.preventDefault()}>
-      <input 
-      placeholder="Get a five-day forecast in your favorite cities" 
-      className="form-control"
-      value={term}
-      onChange={(event) => setTerm(event.target.value)}
-      />
+    <form className="input-group mb-3" onSubmit={onFormSubmit}>
+      <input placeholder="Get a five-day forecast in your favorite cities" className="form-control" value={term} onChange={(event) => setTerm(event.target.value)} />
       <span className="input-group-btn">
         <button type="submit" className="btn btn-secondary">
           Submit
@@ -19,4 +23,6 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+
+
+export default connect(null, { fetchWeather })(SearchBar);
