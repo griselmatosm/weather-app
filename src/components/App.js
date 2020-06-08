@@ -4,10 +4,9 @@ import WeatherList from './WeatherList';
 
 function App() {
   return (
-    <div>
+    <div style={{padding: '50px'}}>
       <SearchBar />
       <WeatherList />
-
     </div>
   );
 }
